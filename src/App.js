@@ -1,9 +1,10 @@
 import React from 'react'
+import Products from './components/Products/Products'
 
 const App = () => {
 	return (
 		<div>
-			<h2>Hello, Laverne.</h2>
+			<Products />
 		</div>
 	)
 }
