@@ -3,8 +3,8 @@ import React from 'react';
 import Product from './Product/Product';
 
 const products =  [
-	{ id: 1, name: 'Gray Rock', description: "You won't find a better gray rock.", price: '$5'},
-	{ id: 2, name: 'Black Rock', description: "Higher quality black rocks than the competition.", price: '$3'},
+	{ id: 1, name: 'Gray Rock', description: "You won't find a better gray rock.", price: '$5', image: 'https://images-na.ssl-images-amazon.com/images/I/61k-SyHsxEL._AC_SL1000_.jpg'},
+	{ id: 2, name: 'Black Rock', description: "Higher quality black rocks than the competition.", price: '$3', image: 'https://www.thoughtco.com/thmb/3jzlU6l0lTqWOn1wl5zw1eDDigQ=/1500x1000/filters:no_upscale():max_bytes(150000):strip_icc()/augite-59036caa5f9b5810dc01f3be.jpg'},
 ]
 
 const Products = () => {
