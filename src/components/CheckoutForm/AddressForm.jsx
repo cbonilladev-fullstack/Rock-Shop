@@ -37,20 +37,13 @@ const AddressForm = ({ checkoutToken }) => {
 		// console.log(subdivisions)
 	}
 
-	//   const fetchShippingOptions = async (checkoutTokenId, country, region = null) => {
-	//     const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region });
-
-	//     setShippingOptions(options);
-	//     setShippingOption(options[0].id);
-	//   };
-
 	const fetchShippingOptions = async (checkoutTokenId, country, region = null) => {
 		const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region });
 
 		setShippingOptions(options);
-		// console.log(options)
+		console.log(options)
 		// console.log(options[0].id)
-		// setShippingOption(options[0].id);
+		setShippingOption(options[0].id);
 	};
 
 	useEffect(() => {
@@ -61,9 +54,6 @@ const AddressForm = ({ checkoutToken }) => {
 		if(shippingCountry) fetchSubdivisions(shippingCountry)
 	}, [shippingCountry])
 
-	// useEffect(() => {
-	// 	if(shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
-	// }, [shippingSubdivision])
 
 	useEffect(() => {
 		if(shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
