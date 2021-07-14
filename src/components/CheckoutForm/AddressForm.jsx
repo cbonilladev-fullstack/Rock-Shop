@@ -1,4 +1,4 @@
-import { Grid, InputLabel, Select, Typography } from '@material-ui/core';
+import { Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { commerce } from '../../lib/commerce';
@@ -14,6 +14,8 @@ const AddressForm = ({ checkoutToken }) => {
 	const [shippingOption, setShippingOption] = useState('');
 
 	const methods = useForm();
+
+	const countries = Object.entries(shippingCountries).map(([code, title]) => ({ id: code, label: title })) 
 
 	const fetchShippingCountries = async (checkoutTokenId) => {
 		const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
@@ -32,19 +34,20 @@ const AddressForm = ({ checkoutToken }) => {
 			<FormProvider {...methods}>
 				<form onSubmit=''>
 					<Grid container spacing={3}>
-						<FormField required name='firstName' label='First Name'/>
-						<FormField required name='lastName' label='Last Name'/>
-						<FormField required name='address1' label='Address'/>
-						<FormField required name='email' label='Email'/>
-						<FormField required name='city' label='City'/>
-						<FormField required name='zip' label='ZIP | Postal Code'/>
+						<FormField required name='firstName' label='First Name' />
+						<FormField required name='lastName' label='Last Name' />
+						<FormField required name='address1' label='Address' />
+						<FormField required name='email' label='Email' />
+						<FormField required name='city' label='City' />
+						<FormField required name='zip' label='ZIP | Postal Code' />
 						<Grid item xs={12} sm={6}>
 							<InputLabel>Shipping Country</InputLabel>
 							<Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
-								{console.log(Object.entries(shippingCountries))}
-								{/* <MenuItem key={} value={}>
-									Select Me
-								</MenuItem> */}
+							{countries.map((country) => (
+								<MenuItem key={country.id} value={country.id}>
+									{country.label}
+								</MenuItem>
+							))}
 							</Select>
 						</Grid>
 						{/* <Grid item xs={12} sm={6}>
