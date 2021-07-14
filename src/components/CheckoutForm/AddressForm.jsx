@@ -15,16 +15,17 @@ const AddressForm = ({ checkoutToken }) => {
 
 	const methods = useForm();
 
-	const countries = Object.entries(shippingCountries).map(([code, title]) => ({ id: code, label: title }))
-	const subdivisions = Object.entries(shippingSubdivisions).map(([code, title]) => ({ id: code, label: title }))
+	const countries = Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name }))
+	// console.log(countries)
+	const subdivisions = Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name }))
 	// const options = shippingOptions.map(() => )
-	console.log(shippingOptions)
+	// console.log(shippingOptions)
 
 	const fetchShippingCountries = async (checkoutTokenId) => {
 		const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
 		setShippingCountries(countries);
-		console.log(countries)
+		// console.log(countries)
 		setShippingCountry(Object.keys(countries)[0])
 	}
 
@@ -33,6 +34,7 @@ const AddressForm = ({ checkoutToken }) => {
 
 		setShippingSubdivisions(subdivisions);
 		setShippingSubdivision(Object.keys(subdivisions)[0]);
+		// console.log(subdivisions)
 	}
 
 	//   const fetchShippingOptions = async (checkoutTokenId, country, region = null) => {
@@ -46,7 +48,9 @@ const AddressForm = ({ checkoutToken }) => {
 		const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region });
 
 		setShippingOptions(options);
-		setShippingOption(options[0].id);
+		// console.log(options)
+		// console.log(options[0].id)
+		// setShippingOption(options[0].id);
 	};
 
 	useEffect(() => {
@@ -54,7 +58,7 @@ const AddressForm = ({ checkoutToken }) => {
 	}, [])
 
 	useEffect(() => {
-		if (shippingCountry) fetchSubdivisions(shippingCountry)
+		if(shippingCountry) fetchSubdivisions(shippingCountry)
 	}, [shippingCountry])
 
 	// useEffect(() => {
@@ -62,7 +66,7 @@ const AddressForm = ({ checkoutToken }) => {
 	// }, [shippingSubdivision])
 
 	useEffect(() => {
-		if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
+		if(shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
 	}, [shippingSubdivision]);
 
 	return (
