@@ -14,6 +14,7 @@ function FormInput({ name, label, required }) {
                 control={control}
                 fullWidth
                 name={name}
+                defaultValue=""
             />
         </Grid>
     );

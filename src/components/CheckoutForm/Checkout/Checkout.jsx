@@ -1,5 +1,6 @@
-import { Paper, Step, StepLabel, Stepper, Typography } from '@material-ui/core'
+import { Button, CircularProgress, Divider, Paper, Step, StepLabel, Stepper, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { commerce } from '../../../lib/commerce'
 import AddressForm from '../AddressForm'
 import PaymentForm from '../PaymentForm'
@@ -16,11 +17,11 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 	useEffect(() => {
 		const generateToken = async () => {
 			try {
-				 const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' })
+				const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' })
 
-				 setCheckoutToken(token);
+				setCheckoutToken(token);
 			} catch (error) {
-
+				console.log(error)
 			}
 		}
 
@@ -37,19 +38,37 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 		nextStep();
 	}
 
-	const Confirmation = () => (
+	let Confirmation = () => order.customer ? (
 		<div>
-			Confirmation
+			<div>
+				<Typography variant="h5">Thank you for your purchase, {order.customer.firstname} {order.customer.lastname}!</Typography>
+				<Divider className={classes.divider} />
+				<Typography variant="ssubtitle2">Order ref: {order.customer_reference}</Typography>
+			</div>
+			<br/>
+			<Button component={Link} to="/" variant="outlined" type="button">Back to Home</Button>
+		</div>
+	) : (
+		<div className={classes.spinner}>
+			<CircularProgress />
 		</div>
 	)
 
+	if(error) {
+		<div>
+			<Typography variant="h5">Error: {error}</Typography>
+			<br/>
+			<Button component={Link} to="/" variant="outlined" type="button">Back to Home</Button>
+		</div>
+	}
+
 	const Form = () => activeStep === 0
-		? <AddressForm checkoutToken={checkoutToken} next={next}/>
-		: <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout}/>
+		? <AddressForm checkoutToken={checkoutToken} next={next} />
+		: <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} onCaptureCheckout={onCaptureCheckout} />
 
 	return (
 		<div>
-			<div className={classes.toolbar} /> 
+			<div className={classes.toolbar} />
 			<main className={classes.layout}>
 				<Paper className={classes.paper}>
 					<Typography variant="h4" align="center">Checkout</Typography>
