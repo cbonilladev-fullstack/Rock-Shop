@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { commerce } from '../../lib/commerce';
-import FormField from './CustomTextField';
+import FormInput from './CustomTextField';
 
 
 const AddressForm = ({ checkoutToken, next }) => {
@@ -66,12 +66,12 @@ const AddressForm = ({ checkoutToken, next }) => {
 			<FormProvider {...methods}>
 				<form onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
 					<Grid container spacing={3}>
-						<FormField name='firstName' label='First Name' />
-						<FormField name='lastName' label='Last Name' />
-						<FormField name='address1' label='Address' />
-						<FormField name='email' label='Email' />
-						<FormField name='city' label='City' />
-						<FormField name='zip' label='ZIP | Postal Code' />
+						<FormInput name='firstName' label='First Name' />
+						<FormInput name='lastName' label='Last Name' />
+						<FormInput name='address1' label='Address' />
+						<FormInput name='email' label='Email' />
+						<FormInput name='city' label='City' />
+						<FormInput name='zip' label='ZIP | Postal Code' />
 						<Grid item xs={12} sm={6}>
 							<InputLabel>Shipping Country</InputLabel>
 							<Select value={shippingCountry} fullWidth onChange={(e) => setShippingCountry(e.target.value)}>
